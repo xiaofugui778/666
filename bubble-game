@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解压小游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>点爆气泡纸</h1>
+    <div id="game-container"></div>
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin: 20px 0;
+    color: #333;
+}
+
+#game-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 300px;
+    margin: 0 auto;
+    background: #fff;
+    border: 2px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.bubble {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #e6e6e6, #ffffff);
+    box-shadow: inset 2px 2px 5px #ccc, inset -2px -2px 5px #fff;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.bubble.popped {
+    background: #999;
+    box-shadow: inset 1px 1px 3px #666, inset -1px -1px 3px #aaa;
+    transform: scale(0.8);
+    cursor: default;
+}
+const gameContainer = document.getElementById('game-container');
+
+// 创建气泡
+for (let i = 0; i < 36; i++) {
+    const bubble = document.createElement('div');
+    bubble.classList.add('bubble');
+    // 点击事件
+    bubble.addEventListener('click', () => {
+        if (!bubble.classList.contains('popped')) {
+            bubble.classList.add('popped');
+            playPopSound(); // 播放声音
+        }
+    });
+    gameContainer.appendChild(bubble);
+}
+
+// 播放气泡破裂声音
+function playPopSound() {
+    const audio = new Audio('https://www.soundjay.com/button/beep-07.mp3');
+    audio.play();
+}
